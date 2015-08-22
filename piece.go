@@ -38,10 +38,6 @@ func (p *Piece) GetTerritory() ([]bool, error) {
 	return vector, nil
 }
 
-func (p *Piece) Movements() []PieceMovement {
-	return nil
-}
-
 func (p *Piece) HorizontalMovements() []PieceMovement {
 	movements := []PieceMovement{}
 	for x := -p.LeftDistance(); x < p.RightDistance()+1; x++ {
