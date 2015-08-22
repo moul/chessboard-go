@@ -91,3 +91,89 @@ func TestKing(t *testing.T) {
 		})
 	})
 }
+
+func TestQueen(t *testing.T) {
+	Convey("Testing Queen", t, func() {
+		Convey("Board=3x3, Queen=1x1", func() {
+			territory, err := NewQueen(NewBoard(3, 3), 1, 1).GetTerritory()
+			So(err, ShouldBeNil)
+			So(territory, ShouldResemble, []bool{
+				true, true, true,
+				true, true, true,
+				true, true, true,
+			})
+		})
+		Convey("Board=3x3, Queen=0x0", func() {
+			territory, err := NewQueen(NewBoard(3, 3), 0, 0).GetTerritory()
+			So(err, ShouldBeNil)
+			So(territory, ShouldResemble, []bool{
+				true, true, true,
+				true, true, false,
+				true, false, true,
+			})
+		})
+		Convey("Board=3x3, Queen=1x0", func() {
+			territory, err := NewQueen(NewBoard(3, 3), 1, 0).GetTerritory()
+			So(err, ShouldBeNil)
+			So(territory, ShouldResemble, []bool{
+				true, true, true,
+				true, true, true,
+				false, true, false,
+			})
+		})
+		Convey("Board=3x3, Queen=2x0", func() {
+			territory, err := NewQueen(NewBoard(3, 3), 2, 0).GetTerritory()
+			So(err, ShouldBeNil)
+			So(territory, ShouldResemble, []bool{
+				true, true, true,
+				false, true, true,
+				true, false, true,
+			})
+		})
+		Convey("Board=3x3, Queen=2x1", func() {
+			territory, err := NewQueen(NewBoard(3, 3), 2, 1).GetTerritory()
+			So(err, ShouldBeNil)
+			So(territory, ShouldResemble, []bool{
+				false, true, true,
+				true, true, true,
+				false, true, true,
+			})
+		})
+		Convey("Board=3x3, Queen=2x2", func() {
+			territory, err := NewQueen(NewBoard(3, 3), 2, 2).GetTerritory()
+			So(err, ShouldBeNil)
+			So(territory, ShouldResemble, []bool{
+				true, false, true,
+				false, true, true,
+				true, true, true,
+			})
+		})
+		Convey("Board=3x3, Queen=1x2", func() {
+			territory, err := NewQueen(NewBoard(3, 3), 1, 2).GetTerritory()
+			So(err, ShouldBeNil)
+			So(territory, ShouldResemble, []bool{
+				false, true, false,
+				true, true, true,
+				true, true, true,
+			})
+		})
+		Convey("Board=3x3, Queen=0x2", func() {
+			territory, err := NewQueen(NewBoard(3, 3), 0, 2).GetTerritory()
+			So(err, ShouldBeNil)
+			So(territory, ShouldResemble, []bool{
+				true, false, true,
+				true, true, false,
+				true, true, true,
+			})
+		})
+		Convey("Board=3x3, Queen=0x1", func() {
+			territory, err := NewQueen(NewBoard(3, 3), 0, 1).GetTerritory()
+			So(err, ShouldBeNil)
+			So(territory, ShouldResemble, []bool{
+				true, true, false,
+				true, true, true,
+				true, true, false,
+			})
+		})
+	})
+}
