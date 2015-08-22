@@ -113,7 +113,37 @@ func NewBishop(board *Board, x, y uint) *Piece {
 	return &piece
 }
 
-/*
 // Knight model
-type Knight struct{}
-*/
+type Knight struct {
+	Piece *Piece
+}
+
+// Movements are Knight's movements
+func (k *Knight) Movements() []PieceMovement {
+	return []PieceMovement{
+		// top-left movements
+		{-2, +1}, {-1, +2},
+		// top-right movements
+		{+2, +1}, {+1, +2},
+		// bottom-right movements
+		{+2, -1}, {+1, -2},
+		// bottom-left movements
+		{-2, -1}, {-1, -2},
+	}
+}
+
+// Symbol is the Knight's symbol
+func (k *Knight) Symbol() string {
+	return "♞"
+}
+
+// NewKnight returns a Knight-flavored Piece
+func NewKnight(board *Board, x, y uint) *Piece {
+	piece := Piece{
+		Board: board,
+		XPos:  int(x),
+		YPos:  int(y),
+	}
+	piece.PieceInterface = &Knight{Piece: &piece}
+	return &piece
+}
