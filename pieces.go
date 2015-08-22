@@ -87,10 +87,33 @@ func NewRook(board *Board, x, y uint) *Piece {
 	return &piece
 }
 
-/*
 // Bishop model
-type Bishop struct{}
+type Bishop struct {
+	Piece *Piece
+}
 
+// Movements are Bishop's movements
+func (k *Bishop) Movements() []PieceMovement {
+	return k.Piece.DiagonalMovements()
+}
+
+// Symbol is the Bishop's symbol
+func (k *Bishop) Symbol() string {
+	return "♝"
+}
+
+// NewBishop returns a Bishop-flavored Piece
+func NewBishop(board *Board, x, y uint) *Piece {
+	piece := Piece{
+		Board: board,
+		XPos:  int(x),
+		YPos:  int(y),
+	}
+	piece.PieceInterface = &Bishop{Piece: &piece}
+	return &piece
+}
+
+/*
 // Knight model
 type Knight struct{}
 */

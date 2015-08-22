@@ -263,3 +263,89 @@ func TestRook(t *testing.T) {
 		})
 	})
 }
+
+func TestBishop(t *testing.T) {
+	Convey("Testing Bishop", t, func() {
+		Convey("Board=3x3, Bishop=1x1", func() {
+			territory, err := NewBishop(NewBoard(3, 3), 1, 1).GetTerritory()
+			So(err, ShouldBeNil)
+			So(territory, ShouldResemble, []bool{
+				true, false, true,
+				false, true, false,
+				true, false, true,
+			})
+		})
+		Convey("Board=3x3, Bishop=0x0", func() {
+			territory, err := NewBishop(NewBoard(3, 3), 0, 0).GetTerritory()
+			So(err, ShouldBeNil)
+			So(territory, ShouldResemble, []bool{
+				true, false, false,
+				false, true, false,
+				false, false, true,
+			})
+		})
+		Convey("Board=3x3, Bishop=1x0", func() {
+			territory, err := NewBishop(NewBoard(3, 3), 1, 0).GetTerritory()
+			So(err, ShouldBeNil)
+			So(territory, ShouldResemble, []bool{
+				false, true, false,
+				true, false, true,
+				false, false, false,
+			})
+		})
+		Convey("Board=3x3, Bishop=2x0", func() {
+			territory, err := NewBishop(NewBoard(3, 3), 2, 0).GetTerritory()
+			So(err, ShouldBeNil)
+			So(territory, ShouldResemble, []bool{
+				false, false, true,
+				false, true, false,
+				true, false, false,
+			})
+		})
+		Convey("Board=3x3, Bishop=2x1", func() {
+			territory, err := NewBishop(NewBoard(3, 3), 2, 1).GetTerritory()
+			So(err, ShouldBeNil)
+			So(territory, ShouldResemble, []bool{
+				false, true, false,
+				false, false, true,
+				false, true, false,
+			})
+		})
+		Convey("Board=3x3, Bishop=2x2", func() {
+			territory, err := NewBishop(NewBoard(3, 3), 2, 2).GetTerritory()
+			So(err, ShouldBeNil)
+			So(territory, ShouldResemble, []bool{
+				true, false, false,
+				false, true, false,
+				false, false, true,
+			})
+		})
+		Convey("Board=3x3, Bishop=1x2", func() {
+			territory, err := NewBishop(NewBoard(3, 3), 1, 2).GetTerritory()
+			So(err, ShouldBeNil)
+			So(territory, ShouldResemble, []bool{
+				false, false, false,
+				true, false, true,
+				false, true, false,
+			})
+		})
+		Convey("Board=3x3, Bishop=0x2", func() {
+			territory, err := NewBishop(NewBoard(3, 3), 0, 2).GetTerritory()
+			So(err, ShouldBeNil)
+			So(territory, ShouldResemble, []bool{
+				false, false, true,
+				false, true, false,
+				true, false, false,
+			})
+		})
+		Convey("Board=3x3, Bishop=0x1", func() {
+			territory, err := NewBishop(NewBoard(3, 3), 0, 1).GetTerritory()
+			So(err, ShouldBeNil)
+			So(territory, ShouldResemble, []bool{
+				false, true, false,
+				true, false, false,
+				false, true, false,
+			})
+		})
+	})
+}
