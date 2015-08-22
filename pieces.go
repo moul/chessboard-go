@@ -47,7 +47,7 @@ func (k *Queen) Movements() []PieceMovement {
 
 // Symbol is the Queen's symbol
 func (k *Queen) Symbol() string {
-	return "♜"
+	return "♛"
 }
 
 // NewQueen returns a Queen-flavored Piece
@@ -61,10 +61,33 @@ func NewQueen(board *Board, x, y uint) *Piece {
 	return &piece
 }
 
-/*
 // Rook model
-type Rook struct{}
+type Rook struct {
+	Piece *Piece
+}
 
+// Movements are Rook's movements
+func (k *Rook) Movements() []PieceMovement {
+	return append(k.Piece.HorizontalMovements(), k.Piece.VerticalMovements()...)
+}
+
+// Symbol is the Rook's symbol
+func (k *Rook) Symbol() string {
+	return "♜"
+}
+
+// NewRook returns a Rook-flavored Piece
+func NewRook(board *Board, x, y uint) *Piece {
+	piece := Piece{
+		Board: board,
+		XPos:  int(x),
+		YPos:  int(y),
+	}
+	piece.PieceInterface = &Rook{Piece: &piece}
+	return &piece
+}
+
+/*
 // Bishop model
 type Bishop struct{}
 
