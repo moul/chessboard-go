@@ -1,3 +1,7 @@
+.PHONY: test
+test:
+	go test -v ./...
+
 .PHONY: convey
 convey:
 	go get github.com/smartystreets/goconvey

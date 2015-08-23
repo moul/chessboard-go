@@ -14,11 +14,11 @@ type Piece struct {
 	PieceInterface
 }
 
-func (p *Piece) GetIndex() (int, error) {
-	return p.Board.CoordinatesToIndex(p.XPos, p.YPos, 0, 0)
+func (p *Piece) GetIndex() (BoardIndex, error) {
+	return p.Board.CoordinatesToIndex(Coordinates{p.XPos, p.YPos})
 }
 
-func (p *Piece) GetTerritory() ([]bool, error) {
+func (p *Piece) GetTerritory() (BoardVector, error) {
 	vector := p.Board.NewVector()
 
 	index, err := p.GetIndex()
@@ -29,7 +29,7 @@ func (p *Piece) GetTerritory() ([]bool, error) {
 	vector[index] = true
 
 	for _, movement := range p.PieceInterface.Movements() {
-		index, err = p.Board.CoordinatesToIndex(p.XPos, p.YPos, movement.Horizontal, movement.Vertical)
+		index, err = p.Board.CoordinatesToIndex(Coordinates{p.XPos + movement.Horizontal, p.YPos + movement.Vertical})
 		if err == nil {
 			vector[index] = true
 		}
