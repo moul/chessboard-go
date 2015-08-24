@@ -18,8 +18,8 @@ func (p *Piece) GetIndex() (BoardIndex, error) {
 	return p.Board.CoordinatesToIndex(Coordinates{p.XPos, p.YPos})
 }
 
-func (p *Piece) GetTerritory() (BoardVector, error) {
-	vector := p.Board.NewVector()
+func (p *Piece) GetTerritory() (BoardBoolVector, error) {
+	vector := p.Board.NewBoolVector()
 
 	index, err := p.GetIndex()
 	if err != nil {

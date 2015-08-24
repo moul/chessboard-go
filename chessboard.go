@@ -2,74 +2,62 @@ package chessboard
 
 import "fmt"
 
-var (
-	ErrForbiddenCoordinates = fmt.Errorf("forbidden coordinates")
-	ErrForbiddenIndex       = fmt.Errorf("forbidden index")
-)
-
-type Board struct {
+type Chessboard struct {
 	Length int
 	Height int
+
+	Pieces map[PieceType]int
 }
 
-func NewBoard(length, height uint) *Board {
-	return &Board{
+func NewChessboard(length, height uint) *Chessboard {
+	return &Chessboard{
 		Length: int(length),
 		Height: int(height),
+		Pieces: make(map[PieceType]int),
 	}
 }
 
-func (b *Board) GetSize() int {
-	return b.Length * b.Height
-}
-
-func (b *Board) NewVector() BoardVector {
-	vector := make(BoardVector, b.GetSize())
+func (cb *Chessboard) NewIndexVector() ChessboardVector {
+	size := cb.GetVectorSize()
+	vector := make(ChessboardVector, size)
+	for i := 0; i < size; i++ {
+		vector[i] = i
+	}
 	return vector
 }
 
-func (b *Board) ValidateCoordinates(coordinates Coordinates) error {
-	if coordinates.XPos < 0 || coordinates.XPos >= b.Length || coordinates.YPos < 0 || coordinates.YPos >= b.Height {
-		return ErrForbiddenCoordinates
+func (cb *Chessboard) GroupedPermutations() error {
+	for kind, quantity := range cb.Pieces {
+		if quantity <= 0 {
+			continue
+		}
+		vector := cb.NewIndexVector()
+		for combination := range combinations(vector, quantity) {
+			fmt.Println(combination)
+		}
+		fmt.Println(kind, quantity)
 	}
+	//fmt.Println(vector)
 	return nil
 }
 
-func (b *Board) CoordinatesToIndex(coordinates Coordinates) (BoardIndex, error) {
-	err := b.ValidateCoordinates(coordinates)
-	if err != nil {
-		return -1, err
-	}
+func (cb *Chessboard) Solve() ([]Board, error) {
+	solutions := []Board{}
 
-	index := BoardIndex(coordinates.YPos*b.Length + coordinates.XPos)
-	return index, nil
+	cb.GroupedPermutations()
+
+	//for piecesSet := range cb.Tree()
+
+	return solutions, nil
 }
 
-func (b *Board) IndexToCoordinates(index BoardIndex) (Coordinates, error) {
-	if index < 0 || int(index) >= b.GetSize() {
-		return Coordinates{-1, -1}, ErrForbiddenIndex
-	}
-
-	x := int(index) % b.Length
-	y := int(index) / b.Length
-	return Coordinates{x, y}, nil
+func (cb *Chessboard) GetVectorSize() int {
+	return cb.Length * cb.Height
 }
 
-func (b *Board) GetPositions() []Coordinates {
-	positions := []Coordinates{}
-	for y := 0; y < b.Height; y++ {
-		for x := 0; x < b.Length; x++ {
-			positions = append(positions, Coordinates{x, y})
-		}
-	}
-	return positions
+func (cb *Chessboard) NewVector() ChessboardVector {
+	vector := make(ChessboardVector, cb.GetVectorSize())
+	return vector
 }
 
-type BoardVector []bool
-
-type Coordinates struct {
-	XPos int
-	YPos int
-}
-
-type BoardIndex int
+type ChessboardVector []int

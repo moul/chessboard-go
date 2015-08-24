@@ -1,5 +1,16 @@
 package chessboard
 
+const (
+	UnknownPieceType = iota
+	KingPieceType
+	QueenPieceType
+	RookPieceType
+	BishopPieceType
+	KnightPieceType
+)
+
+type PieceType int
+
 // King model
 type King struct {
 	Piece *Piece
