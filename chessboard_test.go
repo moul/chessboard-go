@@ -8,6 +8,8 @@ import (
 )
 
 func TestChessboard(t *testing.T) {
+	t.Skip()
+
 	Convey("Testing Chessboard", t, func() {
 		Convey("Board 3x3, 1 king, 2 knights", func() {
 			board := NewChessboard(3, 3)
