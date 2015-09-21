@@ -2,31 +2,31 @@ package chessboard
 
 import "fmt"
 
-type Chessboard struct {
+type Solver struct {
 	Length int
 	Height int
 
 	Pieces map[PieceType]int
 }
 
-func NewChessboard(length, height uint) *Chessboard {
-	return &Chessboard{
+func NewSolver(length, height uint) *Solver {
+	return &Solver{
 		Length: int(length),
 		Height: int(height),
 		Pieces: make(map[PieceType]int),
 	}
 }
 
-func (cb *Chessboard) NewIndexVector() ChessboardVector {
+func (cb *Solver) NewIndexVector() SolverVector {
 	size := cb.GetVectorSize()
-	vector := make(ChessboardVector, size)
+	vector := make(SolverVector, size)
 	for i := 0; i < size; i++ {
 		vector[i] = i
 	}
 	return vector
 }
 
-func (cb *Chessboard) GroupedPermutations() error {
+func (cb *Solver) GroupedPermutations() error {
 	for kind, quantity := range cb.Pieces {
 		if quantity <= 0 {
 			continue
@@ -41,7 +41,7 @@ func (cb *Chessboard) GroupedPermutations() error {
 	return nil
 }
 
-func (cb *Chessboard) Solve() ([]Board, error) {
+func (cb *Solver) Solve() ([]Board, error) {
 	solutions := []Board{}
 
 	cb.GroupedPermutations()
@@ -51,13 +51,13 @@ func (cb *Chessboard) Solve() ([]Board, error) {
 	return solutions, nil
 }
 
-func (cb *Chessboard) GetVectorSize() int {
+func (cb *Solver) GetVectorSize() int {
 	return cb.Length * cb.Height
 }
 
-func (cb *Chessboard) NewVector() ChessboardVector {
-	vector := make(ChessboardVector, cb.GetVectorSize())
+func (cb *Solver) NewVector() SolverVector {
+	vector := make(SolverVector, cb.GetVectorSize())
 	return vector
 }
 
-type ChessboardVector []int
+type SolverVector []int

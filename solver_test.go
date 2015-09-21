@@ -7,12 +7,12 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-func TestChessboard(t *testing.T) {
+func TestSolver(t *testing.T) {
 	t.Skip()
 
-	Convey("Testing Chessboard", t, func() {
+	Convey("Testing Solver", t, func() {
 		Convey("Board 3x3, 1 king, 2 knights", func() {
-			board := NewChessboard(3, 3)
+			board := NewSolver(3, 3)
 			board.Pieces[KingPieceType] = 1
 			board.Pieces[KnightPieceType] = 2
 
