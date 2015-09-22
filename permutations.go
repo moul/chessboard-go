@@ -1,5 +1,7 @@
 package chessboard
 
+import "sync"
+
 type Permutation struct {
 	Pieces    []PieceType
 	Depth     int
@@ -28,4 +30,30 @@ func NewPermutation(pieces map[PieceType]int, rangeSize int) *Permutation {
 	}
 
 	return &permutation
+}
+
+func (p *Permutation) Generator() <-chan string {
+	c := make(chan string, p.RangeSize)
+
+	go func() {
+		defer close(c)
+
+		if len(p.Pieces) == 0 {
+			return
+		}
+
+		var wg sync.WaitGroup
+		wg.Add(p.RangeSize)
+
+		for i := 1; i <= p.RangeSize; i++ {
+			go func(i int) {
+				// Permute()
+				wg.Done()
+			}(i)
+		}
+
+		wg.Wait()
+	}()
+
+	return c
 }
